@@ -1,5 +1,3 @@
-import { totalmem } from 'os';
-
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
@@ -42,10 +40,10 @@ app.get('/', (req, res) => {
         };
 
         result.forEach(element => {
-          totals.distance += parseInt(element.distance);
-          totals.shotsFired += parseInt(element.shotsFired);
-          totals.kills += parseInt(element.kills);
-          totals.duration += parseInt(element.duration);
+          key.distance += parseInt(element.distance);
+          key.shotsFired += parseInt(element.shotsFired);
+          key.kills += parseInt(element.kills);
+          key.duration += parseInt(element.duration);
 
           // console.log(parseInt(element.duration));
 
@@ -53,6 +51,9 @@ app.get('/', (req, res) => {
 
         totals.push({key: 'distance', value: key.distance});
         totals.push({key: 'shotsFired', value: key.shotsFired});
+        totals.push({key: 'kills', value: key.kills});
+        totals.push({key: 'lastLocation', value: result[result.length-1].location});
+        totals.push({key: 'duration', value: key.duration});
 
 
       }
