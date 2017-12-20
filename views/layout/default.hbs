@@ -5,50 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.2/solar/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
 
     <title>Add hunting session</title>
-  <body>
-
-    <nav class="navbar bg-dark">
-        <a class="navbar-brand" href="#">Add session</a>
-    </nav>
-
-      <div class="container">
-
-    {{{body}}}
-
-    <form action="/add_session" method="POST">
-        
-    <div class="form-group">
-        <label for="location">Plats</label>
-        <input type="text" class="form-control" id="location" name="location" placeholder="Plats…">
-    </div>
-
-    <div class="form-group">
-        <label for="duration">Duration</label>
-        <input type="text" class="form-control" id="duration" placeholder="Starttid" name="duration">
-    </div>
+    <body>
+       
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Stats</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/sessions">Sessions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/add">Add session</a>
+      </li>
+    </ul>
+  </div>
+</nav>
     
-    <div class="form-group">        
-        <label for="distance">Antal km</label>
-        <input type="text" class="form-control" id="distance" placeholder="Distans (km)…" name="distance">
-    </div>
-    
-    <div class="form-group">        
-        <label for="shotsFired">Antal skott avlossade</label>
-        <input type="text" class="form-control" id="shotsFired" placeholder="Antal skott avlossade…" name="shotsFired">
-    </div>
-    
-    <div class="form-group">        
-        <label for="kills">Byte</label>
-        <input type="text" class="form-control" id="kills" placeholder="Fällt byte…" name="kills">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-
-</form>
-</div>
+    {{{body}}}    
     {{> scripts}}
+    
   </body>
 </html>

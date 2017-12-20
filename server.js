@@ -4,8 +4,12 @@ const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const hbs = require('express-hbs')
 const moment = require('moment');
+const path = require('path');
 
 var db
+const publicPath = path.join(__dirname, '/views');
+
+console.log(publicPath);
 
 MongoClient.connect('mongodb://dev:dev@ds161306.mlab.com:61306/huntingsession-dev', (err, database) => {
   if (err) return console.log(err)
@@ -15,6 +19,7 @@ MongoClient.connect('mongodb://dev:dev@ds161306.mlab.com:61306/huntingsession-de
   })
 })
 
+app.use('/', express.static(publicPath));
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.engine('hbs', hbs.express4({
@@ -24,50 +29,59 @@ app.engine('hbs', hbs.express4({
 
 app.set('view engine', 'hbs');
 
+// Show summary cards
 app.get('/', (req, res) => {
 
-    var cursor = db.collection('hunting_sessions').find().toArray(function(err, result) {
-
-      let totals = [];
-
-      if (result.length !== 0) {
-        var key = {
-          distance: 0,
-          shotsFired: 0,
-          kills: 0,
-          lastLocation: result[result.length-1].location,
-          duration: 0
-        };
-
-        result.forEach(element => {
-          key.distance += parseInt(element.distance);
-          key.shotsFired += parseInt(element.shotsFired);
-          key.kills += parseInt(element.kills);
-          key.duration += parseInt(element.duration);
-
-          // console.log(parseInt(element.duration));
-
+  var cursor = db.collection('hunting_sessions').find().toArray(function(err, result) {
+    
+          let totals = [];
+    
+          if (result.length !== 0) {
+            var key = {
+              distance: 0,
+              shotsFired: 0,
+              kills: 0,
+              lastLocation: result[result.length-1].location,
+              duration: 0
+            };
+    
+            result.forEach(element => {
+              key.distance += parseInt(element.distance);
+              key.shotsFired += parseInt(element.shotsFired);
+              key.kills += parseInt(element.kills);
+              key.duration += parseInt(element.duration);
+    
+              // console.log(parseInt(element.duration));
+    
+            });
+    
+            totals.push({key: 'Distance', value: key.distance});
+            totals.push({key: 'Shots fired', value: key.shotsFired});
+            totals.push({key: 'Kills', value: key.kills});
+            totals.push({key: 'Last location', value: result[result.length-1].location});
+            totals.push({key: 'Duration', value: key.duration});
+          }
+        
+          res.render('stats', {data: totals});
+        
         });
 
-        totals.push({key: 'distance', value: key.distance});
-        totals.push({key: 'shotsFired', value: key.shotsFired});
-        totals.push({key: 'kills', value: key.kills});
-        totals.push({key: 'lastLocation', value: result[result.length-1].location});
-        totals.push({key: 'duration', value: key.duration});
+});
 
+// Show all sessions
+app.get('/sessions', (req, res) => {
 
-      }
-
-
-
-
-      // console.log(totals.distance);
-
-      // console.log(result);
-      res.render('sessions', {data: result, total: totals});
+    var cursor = db.collection('hunting_sessions').find().toArray(function(err, result) {
+      res.render('sessions', {data: result});
     });
 });
 
+// Form to add sessions
+app.get('/add', (req, res) => {
+  res.render('form');  
+});
+
+// Post new session to database
 app.post('/add_session', (req, res) => {
   
   db.collection('hunting_sessions').save(req.body, (err, result) => {
