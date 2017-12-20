@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add hunting session</title>
+</head>
+<body>
+    <h1 class="title">Add session</h1>
+
+    <form action="/add_session" method="POST">
+        <input type="text" placeholder="Location" name="location">
+        <input type="text" placeholder="Start time" name="start-time">
+        <input type="text" placeholder="End time" name="end-time">
+        <input type="text" placeholder="Distance" name="distance">
+        <input type="text" placeholder="Shots fired" name="shots-fired">
+        <input type="text" placeholder="Kills" name="kills">
+        <button type="submit">Submit</button>
+      </form>
+</body>
+</html>
