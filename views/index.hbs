@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.2/solar/bootstrap.min.css">
+
+    <title>Add hunting session</title>
+</head>
+<body>
+
+    <nav class="navbar bg-dark">
+        <a class="navbar-brand" href="#">Add session</a>
+    </nav>
+    <div class="container">
+
+        <ul class="sessions">
+            <% for(var i=0; i<sessions.length; i++) {%>
+            <li class="session">
+                <span><%= sessions[i].location %></span>
+                <span><%= sessions[i].startTime %></span>
+                <span><%= sessions[i].endTime %></span>
+                <span><%= sessions[i].distance %></span>
+                <span><%= sessions[i].shotsFired %></span>
+                <span><%= sessions[i].kills %></span>
+            </li>
+            <% } %>
+        </ul>
+
+      <form action="/add_session" method="POST">
+        
+        <div class="form-group">
+            <label for="location">Plats</label>
+            <input type="text" class="form-control" id="location" name="location" placeholder="Plats…">
+        </div>
+
+        <div class="form-group">
+            <label for="startTime">Starttid</label>
+            <input type="text" class="form-control" id="startTime" placeholder="Starttid" name="startTime">
+        </div>
+
+        <div class="form-group">        
+            <label for="endTime">Sluttid</label>
+            <input type="text" class="form-control" id="endTime" placeholder="Sluttid" name="endTime">
+        </div>
+        
+        <div class="form-group">        
+            <label for="distance">Antal km</label>
+            <input type="text" class="form-control" id="distance" placeholder="Distans (km)…" name="distance">
+        </div>
+        
+        <div class="form-group">        
+            <label for="shotsFired">Antal skott avlossade</label>
+            <input type="text" class="form-control" id="shotsFired" placeholder="Antal skott avlossade…" name="shotsFired">
+        </div>
+        
+        <div class="form-group">        
+            <label for="kills">Byte</label>
+            <input type="text" class="form-control" id="kills" placeholder="Fällt byte…" name="kills">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

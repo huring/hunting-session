@@ -14,9 +14,15 @@ MongoClient.connect('mongodb://dev:dev@ds161306.mlab.com:61306/huntingsession-de
 })
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
+
+    var cursor = db.collection('hunting_sessions').find().toArray(function(err, result) {
+      console.log(result);
+
+      res.render('index.ejs', {sessions:result});
+    });
 });
 
 app.post('/add_session', (req, res) => {
