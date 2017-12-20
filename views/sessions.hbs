@@ -1,0 +1,11 @@
+<p>Distans: {{total.distance}} km</p>
+<p>Duration: {{total.duration}} h</p>
+<p>Shots fired: {{total.shotsFired}} st</p>
+<p>Kills: {{total.kills}} st</p>
+<p>Last location: {{total.lastLocation}}</p>
+
+{{> card}}
+
+{{#each data}}
+<p>{{location}}, time {{duration}}, distance: {{distance}}, SF: {{shotsFired}}, K: {{kills}}</p>
+{{/each}}

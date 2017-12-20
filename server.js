@@ -1,7 +1,11 @@
+import { totalmem } from 'os';
+
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
+const hbs = require('express-hbs')
+const moment = require('moment');
 
 var db
 
@@ -14,14 +18,52 @@ MongoClient.connect('mongodb://dev:dev@ds161306.mlab.com:61306/huntingsession-de
 })
 
 app.use(bodyParser.urlencoded({extended: true}));
-app.set('view engine', 'ejs');
+
+app.engine('hbs', hbs.express4({
+  partialsDir: __dirname + '/views/partials',
+  defaultLayout: __dirname + '/views/layout/default'
+}));
+
+app.set('view engine', 'hbs');
 
 app.get('/', (req, res) => {
 
     var cursor = db.collection('hunting_sessions').find().toArray(function(err, result) {
-      console.log(result);
 
-      res.render('index.ejs', {sessions:result});
+      let totals = [];
+
+      if (result.length !== 0) {
+        var key = {
+          distance: 0,
+          shotsFired: 0,
+          kills: 0,
+          lastLocation: result[result.length-1].location,
+          duration: 0
+        };
+
+        result.forEach(element => {
+          totals.distance += parseInt(element.distance);
+          totals.shotsFired += parseInt(element.shotsFired);
+          totals.kills += parseInt(element.kills);
+          totals.duration += parseInt(element.duration);
+
+          // console.log(parseInt(element.duration));
+
+        });
+
+        totals.push({key: 'distance', value: key.distance});
+        totals.push({key: 'shotsFired', value: key.shotsFired});
+
+
+      }
+
+
+
+
+      // console.log(totals.distance);
+
+      // console.log(result);
+      res.render('sessions', {data: result, total: totals});
     });
 });
 
