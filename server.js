@@ -5,11 +5,11 @@ const MongoClient = require('mongodb').MongoClient
 const hbs = require('express-hbs')
 const moment = require('moment');
 const path = require('path');
+const expressLess = require('express-less');
 
 var db
 const publicPath = path.join(__dirname, '/views');
-
-console.log(publicPath);
+app.use('/less-css', expressLess(publicPath + '/less', { debug: true }));
 
 MongoClient.connect('mongodb://dev:dev@ds161306.mlab.com:61306/huntingsession-dev', (err, database) => {
   if (err) return console.log(err)
@@ -21,6 +21,7 @@ MongoClient.connect('mongodb://dev:dev@ds161306.mlab.com:61306/huntingsession-de
 
 app.use('/', express.static(publicPath));
 app.use(bodyParser.urlencoded({extended: true}));
+
 
 app.engine('hbs', hbs.express4({
   partialsDir: __dirname + '/views/partials',
@@ -43,6 +44,7 @@ app.get('/', (req, res) => {
               kills: 0,
               lastLocation: result[result.length-1].location,
               duration: 0,
+              sessionCount: result.length
             };
     
             result.forEach(element => {
@@ -54,11 +56,12 @@ app.get('/', (req, res) => {
     
             });
     
-            totals.push({key: 'Distance', value: key.distance, suffix: "km"});
+            totals.push({key: 'Distance', value: key.distance, suffix: "km", color: "."});
             totals.push({key: 'Shots fired', value: key.shotsFired, suffix: "st"});
             totals.push({key: 'Kills', value: key.kills, suffix: "st"});
             totals.push({key: 'Last location', value: result[result.length-1].location});
             totals.push({key: 'Duration', value: key.duration, suffix: "h"});
+            totals.push({key: 'Sessions', value: key.sessionCount});
           }
         
           res.render('stats', {data: totals});
