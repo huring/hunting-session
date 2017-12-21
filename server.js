@@ -55,11 +55,11 @@ app.get('/', (req, res) => {
     
             });
     
-            totals.push({key: 'Distance', value: key.distance});
-            totals.push({key: 'Shots fired', value: key.shotsFired});
-            totals.push({key: 'Kills', value: key.kills});
+            totals.push({key: 'Distance', value: key.distance, suffix: "km"});
+            totals.push({key: 'Shots fired', value: key.shotsFired, suffix: "st"});
+            totals.push({key: 'Kills', value: key.kills, suffix: "st"});
             totals.push({key: 'Last location', value: result[result.length-1].location});
-            totals.push({key: 'Duration', value: key.duration});
+            totals.push({key: 'Duration', value: key.duration, suffix: "h"});
           }
         
           res.render('stats', {data: totals});
