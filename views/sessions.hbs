@@ -1,3 +1,35 @@
-{{#each data}}
-<p>{{location}}, time {{duration}}, distance: {{distance}}, SF: {{shotsFired}}, K: {{kills}}</p>
-{{/each}}
+<div class="container">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Plats</th>
+                <th scope="col">Tid</th>
+                <th scope="col">Distans</th>
+                <th scope="col">Skott</th>
+                <th scope="col">Byten</th>
+                <th scope="col">Added</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {{#each data}}
+
+            <tr>
+                <td>{{location}}</td>
+                <td>{{duration}}</td>
+                <td>{{distance}}</td>
+                <td>{{shotsFired}}</td>
+                <td>{{kills}}</td>
+                <td>{{{formatDateTime timestamp}}}</td>
+
+            </tr>
+
+            {{/each}}
+
+        </tbody>
+
+    </table>
+
+</div>

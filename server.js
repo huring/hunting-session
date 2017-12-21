@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
               shotsFired: 0,
               kills: 0,
               lastLocation: result[result.length-1].location,
-              duration: 0
+              duration: 0,
             };
     
             result.forEach(element => {
@@ -50,7 +50,6 @@ app.get('/', (req, res) => {
               key.shotsFired += parseInt(element.shotsFired);
               key.kills += parseInt(element.kills);
               key.duration += parseInt(element.duration);
-    
               // console.log(parseInt(element.duration));
     
             });
@@ -70,7 +69,6 @@ app.get('/', (req, res) => {
 
 // Show all sessions
 app.get('/sessions', (req, res) => {
-
     var cursor = db.collection('hunting_sessions').find().toArray(function(err, result) {
       res.render('sessions', {data: result});
     });
@@ -78,16 +76,23 @@ app.get('/sessions', (req, res) => {
 
 // Form to add sessions
 app.get('/add', (req, res) => {
-  res.render('form');  
+
+  content = {
+    timestamp: moment().format("MMMM Do YYYY, HH:mm")
+  };
+
+  res.render('form', content);  
 });
 
 // Post new session to database
 app.post('/add_session', (req, res) => {
-  
   db.collection('hunting_sessions').save(req.body, (err, result) => {
     if (err) return console.log(err)
     console.log('saved to database')
     res.redirect('/')
   })
-
 })
+
+hbs.registerHelper('formatDateTime', function(text, options) {
+  return text;
+});
