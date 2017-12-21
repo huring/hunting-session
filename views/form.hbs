@@ -3,27 +3,39 @@
         
     <div class="form-group">
         <label for="location">Plats</label>
-        <input type="text" class="form-control required" id="location" name="location" placeholder="Plats…" required>
+        <input type="text" class="form-control form-control-lg required" id="location" name="location" placeholder="Plats…" required>
     </div>
 
-    <div class="form-group">
-        <label for="duration">Duration</label>
-        <input type="text" class="form-control required" id="duration" placeholder="Längd (timmar, minuter)" name="duration" required>
+    <div class="row">
+
+        <div class="form-group col-6">
+            <label for="duration">Duration</label>
+            <input type="text" class="form-control required" id="duration" placeholder="Längd (timmar, minuter)" name="duration" required>
+        </div>
+        
+        <div class="form-group col-6">        
+            <label for="distance">Antal km</label>
+            <input type="text" class="form-control" id="distance" placeholder="Distans (km)…" name="distance" required>
+        </div>
+    
     </div>
     
-    <div class="form-group">        
-        <label for="distance">Antal km</label>
-        <input type="text" class="form-control" id="distance" placeholder="Distans (km)…" name="distance" required>
-    </div>
+    <div class="row">
+        
+        <div class="form-group col-6">        
+            <label for="shotsFired">Antal skott avlossade</label>
+            <input type="text" class="form-control" id="shotsFired" placeholder="Antal skott avlossade…" name="shotsFired" required>
+        </div>
+        
+        <div class="form-group col-6">        
+            <label for="kills">Byte</label>
+            <input type="text" class="form-control" id="kills" placeholder="Fällt byte…" name="kills" required>
+        </div>
     
-    <div class="form-group">        
-        <label for="shotsFired">Antal skott avlossade</label>
-        <input type="text" class="form-control" id="shotsFired" placeholder="Antal skott avlossade…" name="shotsFired" required>
     </div>
-    
+
     <div class="form-group">        
-        <label for="kills">Byte</label>
-        <input type="text" class="form-control" id="kills" placeholder="Fällt byte…" name="kills" required>
+        <textarea class="form-control" id="commentText" rows="3" placeholder="Några kommentarer?"></textarea>
     </div>
 
     <!-- Metadata -->

@@ -56,12 +56,12 @@ app.get('/', (req, res) => {
     
             });
     
-            totals.push({key: 'Distance', value: key.distance, suffix: "km", color: "."});
-            totals.push({key: 'Shots fired', value: key.shotsFired, suffix: "st"});
-            totals.push({key: 'Kills', value: key.kills, suffix: "st"});
-            totals.push({key: 'Last location', value: result[result.length-1].location});
-            totals.push({key: 'Duration', value: key.duration, suffix: "h"});
-            totals.push({key: 'Sessions', value: key.sessionCount});
+            totals.push(addKeyValue('Distance', key.distance, 'km', 'bg-ming'));
+            totals.push(addKeyValue('Shots fired', key.shotsFired, 'st', 'bg-kelly'));
+            totals.push(addKeyValue('Kills', key.kills, 'st', 'bg-forest'));
+            totals.push(addKeyValue('Last location', result[result.length-1].location, '', 'bg-ming'));
+            totals.push(addKeyValue('Duration', key.duration, 'h', 'bg-emerald'));
+            totals.push(addKeyValue('Sessions', key.sessionCount, '', 'bg-crayola'));
           }
         
           res.render('stats', {data: totals});
@@ -95,6 +95,15 @@ app.post('/add_session', (req, res) => {
     res.redirect('/')
   })
 })
+
+function addKeyValue(key, val, suffix, col) {
+  return {
+    key: key,
+    value: val,
+    suffix: suffix,
+    color: col
+  };
+}
 
 hbs.registerHelper('formatDateTime', function(text, options) {
   return text;
