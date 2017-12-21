@@ -52,7 +52,6 @@ app.get('/', (req, res) => {
               key.shotsFired += parseInt(element.shotsFired);
               key.kills += parseInt(element.kills);
               key.duration += parseInt(element.duration);
-              // console.log(parseInt(element.duration));
     
             });
     
@@ -64,7 +63,7 @@ app.get('/', (req, res) => {
             totals.push(addKeyValue('Sessions', key.sessionCount, '', 'bg-crayola'));
           }
         
-          res.render('stats', {data: totals});
+          res.render('stats', {data: totals, comment: result[Math.floor(Math.random()*result.length)].commentText});
         
         });
 
