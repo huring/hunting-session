@@ -9,7 +9,7 @@ const expressLess = require('express-less');
 
 var db
 const publicPath = path.join(__dirname, '/views');
-app.use('/less-css', expressLess(publicPath + '/less', { debug: true }));
+app.use('/css', expressLess(publicPath + '/less', { debug: true }));
 
 MongoClient.connect('mongodb://dev:dev@ds161306.mlab.com:61306/huntingsession-dev', (err, database) => {
   if (err) return console.log(err)
