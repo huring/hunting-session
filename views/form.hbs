@@ -38,9 +38,11 @@
         <textarea class="form-control" id="commentText" name="commentText" rows="3" placeholder="Några kommentarer?"></textarea>
     </div>
     
-    <div class="form-group">        
-       <input type="file" class="form-control" id="imageFile" name="imageFile">
-    </div>
+    <label class="btn btn-default btn-file">
+        <span id="fileName"></span>
+        Add photo 
+        <input type="file" name="imageFile" id="imageFile" style="display: none;">
+    </label>
 
     <!-- Metadata -->
     <input type="hidden" id="timestamp" value="{{timestamp}}" name="timestamp">
