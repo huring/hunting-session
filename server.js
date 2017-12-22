@@ -7,13 +7,18 @@ const path = require('path');
 const expressLess = require('express-less');
 const fileUpload = require('express-fileupload');
 
-var appEnv = {};
+var appEnv = {
+  db: {
+    user: 'dev',
+    pass: 'dev',
+    url: 'ds161306.mlab.com:61306/huntingsession-dev'
+  },
+  publicPath: path.join(__dirname, '/views')
+};
 
-const publicPath = path.join(__dirname, '/views');
+app.use('/css', expressLess(appEnv.publicPath + '/less', { debug: true }));
 
-app.use('/css', expressLess(publicPath + '/less', { debug: true }));
-
-MongoClient.connect('mongodb://dev:dev@ds161306.mlab.com:61306/huntingsession-dev', (err, database) => {
+MongoClient.connect('mongodb://' + appEnv.db.user + ':' + appEnv.db.pass + '@' + appEnv.db.url, (err, database) => {
   if (err) return console.log(err)
   db = database
   app.listen(process.env.PORT || 3000, () => {
@@ -21,7 +26,7 @@ MongoClient.connect('mongodb://dev:dev@ds161306.mlab.com:61306/huntingsession-de
   })
 })
 
-app.use('/', express.static(publicPath));
+app.use('/', express.static(appEnv.publicPath));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(fileUpload());
 
