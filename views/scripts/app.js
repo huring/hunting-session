@@ -5,12 +5,14 @@ $(document).ready(function() {
     });
 });
 
+// Get all sesssions
 $('.stat-card').on('click', function(evt) {
 
-    $.getJSON('/ajax_test', function(data) {
-        console.log(data);
-    });
+    var type = $(evt.currentTarget).attr('data-type');
 
+    $.getJSON('/ajax_test?' + type + '=true&timestamp=true', function(data) {
+       console.log(data);
+    });
 });
 
 $(document).on('change', ':file', function() {

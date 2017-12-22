@@ -23,11 +23,11 @@ app.get('/', (req, res) => {
                 key.duration += parseInt(element.duration);
               });
       
-              totals.push(addKeyValue('Distance', key.distance, 'km', 'color1', 'settings_ethernet'));
-              totals.push(addKeyValue('Shots fired', key.shotsFired, 'st', 'color2', 'gps_not_fixed'));
-              totals.push(addKeyValue('Kills', key.kills, 'st', 'color3', 'my_location'));
-              totals.push(addKeyValue('Last location', result[result.length-1].location, '', 'color4', 'near_me'));
-              totals.push(addKeyValue('Duration', key.duration, 'h', 'color5', 'timer'));
+              totals.push(addKeyValue('Distance', key.distance, 'km', 'color1', 'settings_ethernet', 'distance'));
+              totals.push(addKeyValue('Shots fired', key.shotsFired, 'st', 'color2', 'gps_not_fixed', 'shotsFired'));
+              totals.push(addKeyValue('Kills', key.kills, 'st', 'color3', 'my_location', 'kills'));
+              totals.push(addKeyValue('Last location', result[result.length-1].location, '', 'color4', 'near_me', 'location'));
+              totals.push(addKeyValue('Duration', key.duration, 'h', 'color5', 'timer', 'duration'));
               totals.push(addKeyValue('Sessions', key.sessionCount, '', 'color6', 'archive'));
             }
           
@@ -48,22 +48,20 @@ app.get('/', (req, res) => {
   
   // Show all sessions
   app.get('/ajax_test', (req, res) => {
-    var test_data = {
-      item: "foo",
-      bar: "kalle"
-    };
-  
-    res.send(test_data);
-  
+    var cursor = db.collection('hunting_sessions').find({}, req.query).toArray(function(err, result) {
+      console.log(result);
+      res.send(result);
+    });  
   });
 
-  function addKeyValue(key, val, suffix, col, icon) {
+  function addKeyValue(key, val, suffix, col, icon, type) {
     return {
       key: key,
       value: val,
       suffix: suffix,
       color: col,
-      icon: icon
+      icon: icon,
+      type: type
     };
   }
 
