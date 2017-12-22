@@ -131,6 +131,17 @@ app.post('/add_session', (req, res) => {
 
 })
 
+// Show all sessions
+app.get('/ajax_test', (req, res) => {
+  var test_data = {
+    item: "foo",
+    bar: "kalle"
+  };
+
+  res.send(test_data);
+
+});
+
 function addKeyValue(key, val, suffix, col, icon) {
   return {
     key: key,
