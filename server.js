@@ -7,7 +7,6 @@ const path = require('path');
 const expressLess = require('express-less');
 const fileUpload = require('express-fileupload');
 
-var HS = require('./session.js');
 var appEnv = {};
 
 const publicPath = path.join(__dirname, '/views');
