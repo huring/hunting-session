@@ -39,7 +39,3 @@ app.engine('hbs', hbs.express4({
 app.set('view engine', 'hbs');
 
 require('./routes')(app, appEnv);
-
-hbs.registerHelper('formatDateTime', function(text, options) {
-  return text;
-});
