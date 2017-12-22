@@ -7,8 +7,12 @@ const moment = require('moment');
 const path = require('path');
 const expressLess = require('express-less');
 
-var db
+var HS = require('./session.js');
+
 const publicPath = path.join(__dirname, '/views');
+
+
+
 app.use('/css', expressLess(publicPath + '/less', { debug: true }));
 
 MongoClient.connect('mongodb://dev:dev@ds161306.mlab.com:61306/huntingsession-dev', (err, database) => {
@@ -52,18 +56,19 @@ app.get('/', (req, res) => {
               key.shotsFired += parseInt(element.shotsFired);
               key.kills += parseInt(element.kills);
               key.duration += parseInt(element.duration);
-    
             });
     
-            totals.push(addKeyValue('Distance', key.distance, 'km', 'bg-ming'));
-            totals.push(addKeyValue('Shots fired', key.shotsFired, 'st', 'bg-kelly'));
-            totals.push(addKeyValue('Kills', key.kills, 'st', 'bg-forest'));
-            totals.push(addKeyValue('Last location', result[result.length-1].location, '', 'bg-ming'));
-            totals.push(addKeyValue('Duration', key.duration, 'h', 'bg-emerald'));
-            totals.push(addKeyValue('Sessions', key.sessionCount, '', 'bg-crayola'));
+            totals.push(addKeyValue('Distance', key.distance, 'km', 'color1', 'settings_ethernet'));
+            totals.push(addKeyValue('Shots fired', key.shotsFired, 'st', 'color2', 'gps_not_fixed'));
+            totals.push(addKeyValue('Kills', key.kills, 'st', 'color3', 'my_location'));
+            totals.push(addKeyValue('Last location', result[result.length-1].location, '', 'color4', 'near_me'));
+            totals.push(addKeyValue('Duration', key.duration, 'h', 'color5', 'timer'));
+            totals.push(addKeyValue('Sessions', key.sessionCount, '', 'color6', 'archive'));
           }
         
-          res.render('stats', {data: totals, comment: result[Math.floor(Math.random()*result.length)].commentText});
+          var rnd = Math.floor(Math.random()*result.length);
+
+          res.render('stats', {data: totals, random: {comment: result[rnd].commentText, date: result[rnd].timestamp, location: result[rnd].location}});
         
         });
 
@@ -71,9 +76,11 @@ app.get('/', (req, res) => {
 
 // Show all sessions
 app.get('/sessions', (req, res) => {
+
     var cursor = db.collection('hunting_sessions').find().toArray(function(err, result) {
-      res.render('sessions', {data: result});
+       res.render('sessions', {data: result});
     });
+
 });
 
 // Form to add sessions
@@ -95,12 +102,13 @@ app.post('/add_session', (req, res) => {
   })
 })
 
-function addKeyValue(key, val, suffix, col) {
+function addKeyValue(key, val, suffix, col, icon) {
   return {
     key: key,
     value: val,
     suffix: suffix,
-    color: col
+    color: col,
+    icon: icon
   };
 }
 
