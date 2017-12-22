@@ -1,5 +1,5 @@
 <div class="container">
-<form action="/add_session" method="POST">
+<form action="/add_session" method="POST" enctype="multipart/form-data">
         
     <div class="form-group">
         <label for="location">Plats</label>
@@ -36,6 +36,10 @@
 
     <div class="form-group">        
         <textarea class="form-control" id="commentText" name="commentText" rows="3" placeholder="Några kommentarer?"></textarea>
+    </div>
+    
+    <div class="form-group">        
+       <input type="file" class="form-control" id="imageFile" name="imageFile">
     </div>
 
     <!-- Metadata -->

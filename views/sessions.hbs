@@ -3,6 +3,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th scope="col"></th>
                 <th scope="col">Plats</th>
                 <th scope="col">Tid</th>
                 <th scope="col">Distans</th>
@@ -18,6 +19,7 @@
             {{#each data}}
 
             <tr>
+                <td><img src='./uploads/{{file}}' width="48"></td>
                 <td>{{location}}</td>
                 <td>{{duration}}</td>
                 <td>{{distance}}</td>
@@ -25,7 +27,6 @@
                 <td>{{kills}}</td>
                 <td>{{commentText}}</td>
                 <td>{{{timestamp}}}</td>
-
             </tr>
 
             {{/each}}

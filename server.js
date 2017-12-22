@@ -6,6 +6,7 @@ const hbs = require('express-hbs')
 const moment = require('moment');
 const path = require('path');
 const expressLess = require('express-less');
+const fileUpload = require('express-fileupload');
 
 var HS = require('./session.js');
 
@@ -25,6 +26,7 @@ MongoClient.connect('mongodb://dev:dev@ds161306.mlab.com:61306/huntingsession-de
 
 app.use('/', express.static(publicPath));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(fileUpload());
 
 
 app.engine('hbs', hbs.express4({
@@ -68,7 +70,14 @@ app.get('/', (req, res) => {
         
           var rnd = Math.floor(Math.random()*result.length);
 
-          res.render('stats', {data: totals, random: {comment: result[rnd].commentText, date: result[rnd].timestamp, location: result[rnd].location}});
+          res.render('stats', {data: totals, 
+              random: {
+                  comment: result[rnd].commentText, 
+                  date: result[rnd].timestamp, 
+                  location: result[rnd].location,
+                  image: './uploads/' + result[rnd].file
+                }
+              });
         
         });
 
@@ -95,11 +104,31 @@ app.get('/add', (req, res) => {
 
 // Post new session to database
 app.post('/add_session', (req, res) => {
-  db.collection('hunting_sessions').save(req.body, (err, result) => {
-    if (err) return console.log(err)
-    console.log('saved to database')
-    res.redirect('/')
-  })
+
+  let session = {
+    location: req.body.location,
+    duration: req.body.duration,
+    distance: req.body.distance,
+    shotsFired: req.body.shotsFired,
+    kills: req.body.kills,
+    commentText: req.body.commentText,
+    timestamp: req.body.timestamp,
+    file: req.files.imageFile.name
+  };
+
+  let imageFile = req.files.imageFile;
+  imageFile.mv(__dirname + '/views/uploads/' + imageFile.name, function(err) {
+    if (err)
+      return res.status(500).send(err);
+ 
+      // Save to database
+      db.collection('hunting_sessions').save(session, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/')
+     })
+  });
+
 })
 
 function addKeyValue(key, val, suffix, col, icon) {
