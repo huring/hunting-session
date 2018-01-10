@@ -23,21 +23,22 @@ module.exports = function(app, appEnv) {
       kills: req.body.kills,
       commentText: req.body.commentText,
       timestamp: req.body.timestamp,
-      file: req.files.imageFile.name
+      file: req.files.imageFile ? req.files.imageFile.name : ""
     };
   
-    let imageFile = req.files.imageFile;
-    imageFile.mv('/Users/huring/Documents/GitHub/hunting-session/views/uploads/' + imageFile.name, function(err) {
-      if (err)
-        return res.status(500).send(err);
-   
-        // Save to database
-        db.collection('hunting_sessions').save(session, (err, result) => {
-          if (err) return console.log(err)
-          console.log('saved to database')
-          res.redirect('/')
-       })
-    });
-  
+
+        let imageFile = req.files.imageFile;
+        imageFile.mv('/Users/huring/Documents/GitHub/hunting-session/views/uploads/' + imageFile.name, function(err) {
+        
+          if (err)
+            return res.status(500).send(err);
+    
+          // Save to database
+          db.collection('hunting_sessions').save(session, (err, result) => {
+            if (err) return console.log(err)
+            console.log('saved to database')
+            res.redirect('/')
+          })
+      });
   })
 }
