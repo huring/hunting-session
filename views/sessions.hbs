@@ -1,38 +1,20 @@
 <div class="container">
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Plats</th>
-                <th scope="col">Tid</th>
-                <th scope="col">Distans</th>
-                <th scope="col">Skott</th>
-                <th scope="col">Byten</th>
-                <th scope="col">Kommentar</th>
-                <th scope="col">Added</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            {{#each data}}
-
-            <tr>
-                <td><img src='./uploads/{{file}}' width="48"></td>
-                <td>{{location}}</td>
-                <td>{{duration}}</td>
-                <td>{{distance}}</td>
-                <td>{{shotsFired}}</td>
-                <td>{{kills}} {{animalType}}</td>
-                <td>{{commentText}}</td>
-                <td>{{{timestamp}}}</td>
-            </tr>
-
-            {{/each}}
-
-        </tbody>
-
-    </table>
-
+    <div class="row">
+    {{#each data}}
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-block top-image" style="background-image: url(./uploads/{{file}})"></div>
+            <div class="card-block">
+                <h4 class="card-title">{{location}}</h4>
+                <p class="card-text"><small class="text-muted">{{{timestamp}}}, {{duration}} h, {{distance}} km</small></p>
+                <p class="card-text">{{commentText}}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Skott:</strong> {{shotsFired}}</li>
+                <li class="list-group-item"><strong>Byten:</strong> {{kills}} {{animalType}}</li>
+            </ul>
+        </div>
+    </div>
+    {{/each}}
+    </div>
 </div>

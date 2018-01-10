@@ -23,18 +23,19 @@ module.exports = function(app, appEnv) {
       kills: req.body.kills,
       commentText: req.body.commentText,
       timestamp: req.body.timestamp,
-      file: req.files.imageFile ? req.files.imageFile.name : "",
+      file: 'missing-image.png',
       animalType: req.body.animalType
     };
   
 
     let imageFile = req.files.imageFile;
 
-    if (imageFile == 'undefined') {
-      console.log('Noting to upload');
+    if (imageFile === undefined) {
+      session.file = "missing-image.png"
+    } else {
+      session.file = imageFile.name
     }
 
-    console.log(imageFile);
     db.collection('hunting_sessions').save(session, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
