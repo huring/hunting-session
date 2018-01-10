@@ -21,3 +21,11 @@ $(document).on('change', ':file', function() {
         label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
     input.trigger('fileselect', [numFiles, label]);
 });
+
+$('#kills').on('keydown', function(evt) {
+
+    console.log($('#animalType').css('display', 'block'));
+
+    if ($(this).val().length >= 1)
+        $('#killTypesContainer').show();
+});

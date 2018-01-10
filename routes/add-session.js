@@ -23,22 +23,38 @@ module.exports = function(app, appEnv) {
       kills: req.body.kills,
       commentText: req.body.commentText,
       timestamp: req.body.timestamp,
-      file: req.files.imageFile ? req.files.imageFile.name : ""
+      file: req.files.imageFile ? req.files.imageFile.name : "",
+      animalType: req.body.animalType
     };
   
 
-        let imageFile = req.files.imageFile;
-        imageFile.mv('/Users/huring/Documents/GitHub/hunting-session/views/uploads/' + imageFile.name, function(err) {
+    let imageFile = req.files.imageFile;
+
+    if (imageFile == 'undefined') {
+      console.log('Noting to upload');
+    }
+
+    console.log(imageFile);
+    db.collection('hunting_sessions').save(session, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/')
+    });
+
+      // Let's skip image saving for now
+      // TODO: Upload image to cloud service... 
+
+        //imageFile.mv('/Users/huring/Documents/GitHub/hunting-session/views/uploads/' + imageFile.name, function(err) {
         
-          if (err)
-            return res.status(500).send(err);
+        //  if (err)
+        //    return res.status(500).send(err);
     
           // Save to database
-          db.collection('hunting_sessions').save(session, (err, result) => {
-            if (err) return console.log(err)
-            console.log('saved to database')
-            res.redirect('/')
-          })
-      });
+//          db.collection('hunting_sessions').save(session, (err, result) => {
+//            if (err) return console.log(err)
+//            console.log('saved to database')
+//            res.redirect('/')
+//          })
+//      });
   })
 }
