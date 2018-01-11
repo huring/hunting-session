@@ -24,7 +24,7 @@ $(document).on('change', ':file', function() {
 
 $('#kills').on('keydown', function(evt) {
 
-    console.log($('#animalType').css('display', 'block'));
+    // console.log($('#animalType').css('display', 'block'));
 
     if ($(this).val().length >= 1)
         $('#killTypesContainer').show();
