@@ -26,17 +26,14 @@ $('#addShot').on('click', function() {
     console.log("Add shot…")
 
     var shot = $(".shot-input").map(function() {
-        return {
-                'id': this.name,
-                'val': this.value
-            };
+        return this.value
     }).get();
 
     $('<input />')
         .attr('type', 'text')
         .attr('name', 'shot_1')
         .addClass('shots-fired')
-        .attr('value', JSON.stringify(shot))
+        .attr('value', shot)
         .appendTo($("#addSessionForm"));
 
     $('#shotsFiredModal').modal('hide');
