@@ -22,10 +22,22 @@ $(document).on('change', ':file', function() {
     input.trigger('fileselect', [numFiles, label]);
 });
 
-$('#kills').on('keydown', function(evt) {
+$('#addShot').on('click', function() {
+    console.log("Add shot…")
 
-    // console.log($('#animalType').css('display', 'block'));
+    var shot = $(".shot-input").map(function() {
+        return {
+                'id': this.name,
+                'val': this.value
+            };
+    }).get();
 
-    if ($(this).val().length >= 1)
-        $('#killTypesContainer').show();
+    $('<input />')
+        .attr('type', 'text')
+        .attr('name', 'shot_1')
+        .addClass('shots-fired')
+        .attr('value', JSON.stringify(shot))
+        .appendTo($("#addSessionForm"));
+
+    $('#shotsFiredModal').modal('hide');
 });

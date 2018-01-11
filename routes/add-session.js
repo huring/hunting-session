@@ -19,7 +19,7 @@ module.exports = function(app, appEnv) {
       location: req.body.location,
       duration: req.body.duration,
       distance: req.body.distance,
-      shotsFired: req.body.shotsFired,
+      shotsFired: req.body.shot_1,
       kills: req.body.kills,
       commentText: req.body.commentText,
       timestamp: req.body.timestamp,
@@ -35,6 +35,8 @@ module.exports = function(app, appEnv) {
     } else {
       session.file = imageFile.name
     }
+
+    console.log(req.body.shot_1);
 
     db.collection('hunting_sessions').save(session, (err, result) => {
         if (err) return console.log(err)
