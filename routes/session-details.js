@@ -30,7 +30,7 @@ module.exports = function(app, appEnv) {
         var session = new Sessions();
         var sessionId = req.params.session_id;
 
-        session.getSingleSession(sessionId)
+        session.getSingle(sessionId)
             .then(function(result) { 
                 res.render('session-details', {data: result});
             })

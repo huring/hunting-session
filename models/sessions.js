@@ -4,11 +4,9 @@ const ObjectId = require('mongodb').ObjectID;
 
 class Sessions {
     constructor() {
-        this.name = "foo";
-        this.collection = 'hunting_sessions';
     }
 
-    getAllSessions(coll) {
+    getAll(coll) {
 
         console.log("Promise all results");
 
@@ -23,7 +21,7 @@ class Sessions {
         });
     }
 
-    getSingleSession(id) {
+    getSingle(id) {
 
         console.log("Promise single result with ID");
 

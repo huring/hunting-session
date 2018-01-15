@@ -32,7 +32,7 @@ module.exports = function(app, appEnv) {
 
         console.log(sessions);
 
-        sessions.getAllSessions()
+        sessions.getAll()
             .then(function(result) { 
                 res.render('sessions', {data: result});
             })
