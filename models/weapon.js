@@ -21,9 +21,7 @@ class Weapon {
     set caliber(caliber) { this._caliber = caliber; }
 
     add() {
-
         return new Promise((resolve, reject) => {
-
             db.collection('weapons').insert(this, (err, result) => {
                 if (err) return reject(err);
                 resolve("Saved to database");

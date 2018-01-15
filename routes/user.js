@@ -19,16 +19,18 @@ module.exports = function(app, appEnv) {
 
             })
             .catch(function(err) {
-               console.log(err);
+               throw new Error(err);
             });
 
         
     });
 
     app.post('/me/add_weapon', (req,res) => {
+        
         var weapon = new Weapon(req.body);
+
         weapon.add().then((result) => {
             res.redirect('/me')
-        }).catch((error) => { console.log(error) });
+        }).catch((error) => { throw new Error(err); });
     })
 }
