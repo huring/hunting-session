@@ -28,7 +28,7 @@ class User {
         });
     }
 
-    weaponCollection() {
+    getWeaponCollection() {
         var _this = this;
 
         if (this._uid === null)

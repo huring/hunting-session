@@ -13,7 +13,7 @@ module.exports = function(app, appEnv) {
             .then(function(result) {
 
                 // Get users weapon collection
-                user.weaponCollection().then((weapons) => {
+                user.getWeaponCollection().then((weapons) => {
                     res.render('user', {data: result, weapons: weapons});
                 });
 
