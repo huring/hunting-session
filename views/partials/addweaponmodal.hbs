@@ -1,0 +1,35 @@
+
+<div class="modal" tabindex="-1" id="addWeaponModal" role="dialog">
+    <div class="modal-dialog" role="document">
+
+    <form action="/me/add_weapon" method="POST" name="addWeapon" id="addWeapon">
+
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Add weapon</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            
+            <label for="weaponType">Type</label>
+            <input type="text" class="form-control shot-input" id="weaponType" placeholder="Typ..." name="weaponType">
+           
+            <label for="weaponModel">Model</label>
+            <input type="text" class="form-control shot-input" id="weaponModel" placeholder="Modell..." name="weaponModel">
+
+            
+            <label for="weaponCaliber">Caliber</label>
+            <input type="text" class="form-control shot-input" id="weaponCaliber" placeholder="Kaliber..." name="weaponCaliber">
+        
+        </div>
+        <div class="modal-footer">
+            <input type="submit" value="Lägg till">
+        </div>
+        </div>
+
+    </form>
+
+    </div>
+</div>

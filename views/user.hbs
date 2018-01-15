@@ -1,0 +1,32 @@
+<div class="user-details">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <h1 class="title">{{data.name}}</h1>
+            <ul class="user-data">
+                <li>{{data.status}}</li>
+                <li><strong>Weapons</strong>
+                    <ul>
+                        {{#each weapons}}
+
+                            <li>{{_model}}, {{_type}} - {{_caliber}}</li>
+
+                        {{/each}}
+                    </ul>
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addWeaponModal">
+                        Lägg till skott
+                    </button>
+
+                    {{> addweaponmodal}}
+
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>

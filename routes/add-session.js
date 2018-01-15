@@ -16,6 +16,7 @@ module.exports = function(app, appEnv) {
   app.post('/add_session', (req, res) => {
   
     let session = {
+      uid: "1",
       location: req.body.location,
       duration: req.body.duration,
       distance: req.body.distance,

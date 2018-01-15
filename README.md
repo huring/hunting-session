@@ -5,8 +5,9 @@ Small app to collect information about hunting sessions, used as a test-bed for 
 * Add multiple users
 * Add/save weapons
 * Add/save favourite hunts
-* Detail information about session
+* Detail information about user
 * Sync GPS-information/route
 * ~~Detail view for session/hunt~~
 * Multiple images
 * More meta-data about scopes, loads etc
+* ~~Nicer fetch of sessions~~
