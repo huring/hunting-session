@@ -16,7 +16,7 @@ module.exports = function(app, appEnv) {
                 user.weaponCollection().then((weapons) => {
                     res.render('user', {data: result, weapons: weapons});
                 });
-                
+
             })
             .catch(function(err) {
                console.log(err);
@@ -26,8 +26,6 @@ module.exports = function(app, appEnv) {
     });
 
     app.post('/me/add_weapon', (req,res) => {
-        console.log(req);
-
         var weapon = new Weapon(req.body);
         db.collection('weapons').insert(weapon, (err, result) => {
             if (err) return console.log(err)
@@ -35,5 +33,4 @@ module.exports = function(app, appEnv) {
             res.redirect('/me')
         });
     })
-
 }
