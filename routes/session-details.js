@@ -1,4 +1,5 @@
 const hbs = require('express-hbs')
+const ObjectId = require('mongodb').ObjectID;
 
 module.exports = function(app, appEnv) {
 
@@ -22,10 +23,12 @@ module.exports = function(app, appEnv) {
     });
   
     // Show all sessions
-    app.get('/sessions', (req, res) => {
-        var cursor = db.collection('hunting_sessions').find().toArray(function(err, result) {
+    app.get('/sessions/:session_id', (req, res) => {
+
+        var sessionId = req.params.session_id;
+        var cursor = db.collection('hunting_sessions').findOne({_id: ObjectId(sessionId)}, function(err, result) {
             console.log(result);
-            res.render('sessions', {data: result});
+            res.render('session-details', {data: result});
         });
     });
 }

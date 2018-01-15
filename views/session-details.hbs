@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="title">{{data.location}}</h1>
+            <h4 class="details">{{data.timestamp}}</h4>
+            <ul class="content">
+                <li>Tid: {{data.duration}}</li>
+                <li>Distans: {{data.distance}}</li>
+                <li>Kills: {{data.kills}}</li>
+
+                {{#each data.shotsFired}}
+                    <li>Shot: {{this}}</li>
+                {{/each}}
+
+                <li>commentText: {{data.commentText}}</li>
+                <li>Animal type: {{data.animalType}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
