@@ -28,22 +28,13 @@ module.exports = function(app, appEnv) {
     app.get('/sessions/:session_id', (req, res) => {
 
         var session = new Sessions();
-        var sessionId = req.params.session_id;
+        session.session_id = req.params.session_id;
 
-        session.getSingle(sessionId)
+        session.getSingle()
             .then(function(result) { 
                 res.render('session-details', {data: result});
             })
             .catch(function(error) { });
-
-        //model.getSingleSession(sessionId)
-       // .then(function(result) {
-        //    res.render('session-details', {data: result});
-        //    done();
-       // }).catch(function(err) {
-            // Something went wrong
-       //     console.log(err);
-       // });
 
     });
 }

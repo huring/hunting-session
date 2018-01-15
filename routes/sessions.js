@@ -25,17 +25,11 @@ module.exports = function(app, appEnv) {
   
     // Show all sessions
     app.get('/sessions', (req, res) => {
-
         var sessions = new Sessions();
-        sessions.name = "My name...";
-        var sessionId = req.params.session_id;
-
-        console.log(sessions);
-
         sessions.getAll()
             .then(function(result) { 
                 res.render('sessions', {data: result});
             })
-            .catch(function(error) { });
+            .catch(function(error) { console.log(error) });
     });
 }
