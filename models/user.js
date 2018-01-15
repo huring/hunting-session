@@ -37,7 +37,7 @@ class User {
         console.log("Get all weapons for user");
 
         return new Promise((resolve, reject) => {
-            db.collection('weapons').find({uid: 1}).toArray((err, result) => {
+            db.collection('weapons').find({uid: _this._uid}).toArray((err, result) => {
                 if (err) {
                     reject(err);
                 } else {

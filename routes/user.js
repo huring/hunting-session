@@ -27,10 +27,8 @@ module.exports = function(app, appEnv) {
 
     app.post('/me/add_weapon', (req,res) => {
         var weapon = new Weapon(req.body);
-        db.collection('weapons').insert(weapon, (err, result) => {
-            if (err) return console.log(err)
-            console.log('saved to database')
+        weapon.add().then((result) => {
             res.redirect('/me')
-        });
+        }).catch((error) => { console.log(error) });
     })
 }
