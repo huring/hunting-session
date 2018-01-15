@@ -1,4 +1,4 @@
-# hunting-session
+# Hunting session
 Small app to collect information about hunting sessions, used as a test-bed for a bigger project. 
 
 ## TODO
