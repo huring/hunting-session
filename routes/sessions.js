@@ -1,5 +1,7 @@
 const hbs = require('express-hbs')
 
+var { Sessions } = require('../models/sessions');
+
 module.exports = function(app, appEnv) {
 
     hbs.registerHelper('formatArray', function(text) {
@@ -23,9 +25,17 @@ module.exports = function(app, appEnv) {
   
     // Show all sessions
     app.get('/sessions', (req, res) => {
-        var cursor = db.collection('hunting_sessions').find().toArray(function(err, result) {
-            console.log(result);
-            res.render('sessions', {data: result});
-        });
+
+        var sessions = new Sessions();
+        sessions.name = "My name...";
+        var sessionId = req.params.session_id;
+
+        console.log(sessions);
+
+        sessions.getAllSessions()
+            .then(function(result) { 
+                res.render('sessions', {data: result});
+            })
+            .catch(function(error) { });
     });
 }

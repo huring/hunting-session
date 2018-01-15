@@ -1,6 +1,8 @@
 const hbs = require('express-hbs')
 const ObjectId = require('mongodb').ObjectID;
 
+var { Sessions } = require('../models/sessions');
+
 module.exports = function(app, appEnv) {
 
     hbs.registerHelper('formatArray', function(text) {
@@ -25,10 +27,23 @@ module.exports = function(app, appEnv) {
     // Show all sessions
     app.get('/sessions/:session_id', (req, res) => {
 
+        var session = new Sessions();
         var sessionId = req.params.session_id;
-        var cursor = db.collection('hunting_sessions').findOne({_id: ObjectId(sessionId)}, function(err, result) {
-            console.log(result);
-            res.render('session-details', {data: result});
-        });
+
+        session.getSingleSession(sessionId)
+            .then(function(result) { 
+                res.render('session-details', {data: result});
+            })
+            .catch(function(error) { });
+
+        //model.getSingleSession(sessionId)
+       // .then(function(result) {
+        //    res.render('session-details', {data: result});
+        //    done();
+       // }).catch(function(err) {
+            // Something went wrong
+       //     console.log(err);
+       // });
+
     });
 }
