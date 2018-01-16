@@ -19,19 +19,6 @@ class HuntingSession {
             this['_animalType'] = obj.animalType;
             this['_weapon'] = obj.weapon;
         }
-
-            //_id: obj.id
-           // uid: obj.user_id
-           // location: obj.location
-           // duration: obj.duration
-           // distance: obj.distance
-           // shotsFired: obj.shot_1
-           // kills: obj.kills
-            //commentText: obj.commentText
-           // timestamp: obj.timestamp
-           // file: 'missing-image.png'
-          //  animalType: obj.animalType
-           // weapon: obj.weaponModelUsed
     }
 
 
@@ -49,17 +36,6 @@ class HuntingSession {
     
     get weapon() { return this['_weapon']; }
     set weapon(weapon) { this['_weapon'] = weapon; }
-
-    // Methods
-    getWeaponUsed(id) {
-        var weapon = new Weapon();
-        weapon.getByID(id).then((result) => {
-            // console.log(result);
-            return result;
-        }).catch((error) => {
-            throw new Error(error);
-        })
-    }
 }
 
 exports.HuntingSession = HuntingSession;
