@@ -47,6 +47,14 @@
 
     {{> shotfiredmodal}}
 
+    <select name="weaponModelUsed" id="weaponModelUsed">
+
+        {{#each weapons}}
+            <option value="{{this._id}}">{{this._model}} ({{this._type}})</option>
+        {{/each}}
+
+    </select>
+
     <div class="form-group">        
         <textarea class="form-control" id="commentText" name="commentText" rows="3" placeholder="Några kommentarer?"></textarea>
     </div>
@@ -58,7 +66,7 @@
     </label>
 
     <!-- Metadata -->
-    <input type="hidden" id="timestamp" value="{{timestamp}}" name="timestamp">
+    <input type="text" id="timestamp" value="{{data.timestamp}}" name="timestamp">
     <!-- End metadata -->
 
     <button type="submit" class="btn btn-primary">Submit</button>

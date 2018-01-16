@@ -1,3 +1,6 @@
+var { User } = require('../models/user');
+var { Weapon } = require('../models/weapon');
+
 module.exports = function(app, appEnv) {
 
     const moment = require('moment');
@@ -9,14 +12,30 @@ module.exports = function(app, appEnv) {
       timestamp: moment().format("MMMM Do YYYY, HH:mm")
     };
   
-    res.render('form', content);  
+    var user = new User();
+    var weapon = new Weapon();
+
+    weapon.getByID("5a5cc76154bc001de49bf4e7").then((result) => {
+      console.log(result);
+    });
+
+    // Get users weapon collection
+    user.getWeaponCollection().then((weapons) => {
+      res.render('form', {data: content, weapons});
+    });
+
+
+    
+  
   });
   
   // Post new session to database
   app.post('/add_session', (req, res) => {
+
+    var user = new User();
   
     let session = {
-      uid: "1",
+      uid: user.id,
       location: req.body.location,
       duration: req.body.duration,
       distance: req.body.distance,
@@ -25,7 +44,8 @@ module.exports = function(app, appEnv) {
       commentText: req.body.commentText,
       timestamp: req.body.timestamp,
       file: 'missing-image.png',
-      animalType: req.body.animalType
+      animalType: req.body.animalType,
+      weapon: req.body.weaponModelUsed
     };
   
 
@@ -37,7 +57,7 @@ module.exports = function(app, appEnv) {
       session.file = imageFile.name
     }
 
-    console.log(req.body.shot_1);
+    console.log(session);
 
     db.collection('hunting_sessions').save(session, (err, result) => {
         if (err) return console.log(err)

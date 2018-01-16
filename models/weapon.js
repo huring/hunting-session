@@ -1,14 +1,18 @@
 "use strict"
 
+const ObjectId = require('mongodb').ObjectID;
+
 class Weapon { 
 
     constructor(obj) {
 
-        this.uid = 1;                       // User-id needs to be set with code...
-        this._type = obj.weaponType;
-        this._model = obj.weaponModel;
-        this._caliber = obj.weaponCaliber;
-
+        if (obj) {
+            this.uid = 1;                       // User-id needs to be set with code...
+            this._type = obj.weaponType;
+            this._model = obj.weaponModel;
+            this._caliber = obj.weaponCaliber;
+        }
+        
     };
 
     get type() { return this._type; }
@@ -27,6 +31,17 @@ class Weapon {
                 resolve("Saved to database");
             });
         });
+    }
+
+    getByID(id) {
+        return new Promise((resolve, reject) => {
+            db.collection('weapons').findOne({_id: ObjectId(id)}, (err, result) => {
+                if (err)
+                    throw new Error(err);
+
+                resolve(result);
+            });
+        })
     }
 }
 
