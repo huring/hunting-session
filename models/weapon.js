@@ -43,6 +43,17 @@ class Weapon {
             });
         })
     }
+
+    getAll() {
+        return new Promise((resolve, reject) => {
+            db.collection('weapons').find().toArray((err, result) => {
+                if (err)
+                    throw new Error(err);
+
+                resolve(result);
+            });
+        })
+    }
 }
 
 exports.Weapon = Weapon;

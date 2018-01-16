@@ -47,13 +47,13 @@ class HuntingSession {
     get image() { return this['_file']; }
     get animalType() { return this['_animalType']; }
     
-    get weapon() { return this.getWeaponUsed(); }
-    // set weapon(weapon) { this['_weapon'] = weapon; }
+    get weapon() { return this['_weapon']; }
+    set weapon(weapon) { this['_weapon'] = weapon; }
 
     // Methods
-    getWeaponUsed() {
+    getWeaponUsed(id) {
         var weapon = new Weapon();
-        weapon.getByID(this['_weapon']).then((result) => {
+        weapon.getByID(id).then((result) => {
             // console.log(result);
             return result;
         }).catch((error) => {
