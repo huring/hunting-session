@@ -1,4 +1,4 @@
-var { HuntingSession } = require('../models/huntingSession');
+var { HuntingSession } = require('../models/classes/huntingSession.class');
 
 var { User } = require('../models/user');
 var { Weapon } = require('../models/weapon');
