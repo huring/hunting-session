@@ -25,6 +25,8 @@ module.exports = function(app, appEnv) {
             })
             .catch((err) => { throw new Error(err) });
 
+        // Ugly hack to match weapon to hunt because i can't understand promises
+        // This should at least be changed to only get MY weapons... 
         var weaponsUsed = weapon.getAll()
             .then((result) => {
                 return result;
