@@ -40,6 +40,26 @@ class HuntingSession {
             });
         });
     }
+
+    getByID(id) {
+        return new Promise((resolve, reject) => {
+            db.collection('hunting_sessions').findOne({_id: ObjectId(id)}, (err, result) => {
+                if (err)
+                    throw new Error(err);
+                resolve(result);
+            });
+        })
+    }
+
+    getAll() {
+        return new Promise((resolve, reject) => {
+            db.collection('hunting_sessions').find().toArray((err, result) => {
+                if (err)
+                    throw new Error(err);
+                resolve(result);
+            });
+        })
+    }
 }
 
 exports.HuntingSession = HuntingSession;

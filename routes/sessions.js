@@ -12,46 +12,37 @@ module.exports = function(app, appEnv) {
 
     // Show all sessions
     app.get('/sessions', (req, res) => {
-        var sessions = new Sessions();
-        var weapon = new Weapon();
         
-        var huntingSessions = sessions.getAll()
-            .then(function(result) {
-                var hs = result.map((item) => {
-                   return new HuntingSession(item);
-                });
+        var huntingSession = new HuntingSession();
+        var weapon = new Weapon();
 
-                return hs;
-            })
-            .catch((err) => { throw new Error(err) });
-
-        // Ugly hack to match weapon to hunt because i can't understand promises
-        // This should at least be changed to only get MY weapons... 
-        var weaponsUsed = weapon.getAll()
+        var hsPromise = huntingSession.getAll()
             .then((result) => {
                 return result;
+            }).catch((err) => { throw new Error(err) });
+
+        var weaponPromise = weapon.getAll()
+            .then((result) => {
+                return result;
+            }).catch((err) => { throw new Error(err) });
+
+        var body = Promise.all([hsPromise, weaponPromise]);
+        
+        body.then((data) => {
+            var hunts = data[0];
+            var w = data[1];
+
+            // Super f*ing ugly hack...
+            hunts.map((item) => {
+                w.forEach(function(element) {
+                    if (item.weapon == element._id) {
+                        item.weapon = element;
+                    }   
+                }, this);
             })
-            .catch((err) => { throw new Error(err) });
 
-        var result = Promise.all([huntingSessions, weaponsUsed]);
-           
-            result.then((data) => {
-                var hunts = data[0];
-                var w = data[1];
+            res.render('sessions', {data: data[0]});
 
-                // Super f*ing ugly hack...
-                hunts.map((item) => {
-                    w.forEach(function(element) {
-                        if (item.weapon == element._id) {
-                            item.weapon = element;
-                        }   
-                    }, this);
-                })
-
-                res.render('sessions', {data: data[0]});
-            })
-            .catch((error) => {
-                throw new Error(error);
-            })               
+        }).catch((err) => { throw new Error(err) });           
     });
 }
