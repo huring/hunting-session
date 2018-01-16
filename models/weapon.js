@@ -33,8 +33,8 @@ class Weapon {
         });
     }
 
-    async getByID(id) {
-        await new Promise((resolve, reject) => {
+    getByID(id) {
+        return new Promise((resolve, reject) => {
             db.collection('weapons').findOne({_id: ObjectId(id)}, (err, result) => {
                 if (err)
                     throw new Error(err);

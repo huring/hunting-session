@@ -1,3 +1,5 @@
+var { Weapon } = require('../models/weapon');
+
 class HuntingSession {
 
     constructor(obj) {
@@ -32,6 +34,8 @@ class HuntingSession {
            // weapon: obj.weaponModelUsed
     }
 
+
+    // Public variables
     get id() { return this['_id']; }
     get uid() { return this['_uid']; }
     get location() { return this['_location']; }
@@ -43,8 +47,19 @@ class HuntingSession {
     get image() { return this['_file']; }
     get animalType() { return this['_animalType']; }
     
-    get weapon() { return this['_weapon']; }
-    set weapon(weapon) { this['_weapon'] = weapon; }
+    get weapon() { return this.getWeaponUsed(); }
+    // set weapon(weapon) { this['_weapon'] = weapon; }
+
+    // Methods
+    getWeaponUsed() {
+        var weapon = new Weapon();
+        weapon.getByID(this['_weapon']).then((result) => {
+            // console.log(result);
+            return result;
+        }).catch((error) => {
+            throw new Error(error);
+        })
+    }
 }
 
 exports.HuntingSession = HuntingSession;

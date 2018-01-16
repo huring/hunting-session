@@ -12,8 +12,6 @@ const ObjectId = require('mongodb').ObjectID;
 
 
 module.exports = function(app, appEnv) {
-  
-    
 
     // Show all sessions
     app.get('/sessions', (req, res) => {
@@ -23,31 +21,19 @@ module.exports = function(app, appEnv) {
             .then(function(result) {
 
                 var shootingSessions = [];
-                var weapon = new Weapon();
 
                 result.forEach(function(element) {
-                    
                     var hunt = new HuntingSession(element);
-                    // console.log(hunt)
-                    weapon.getByID(hunt.weapon).then((result) => {
-                        // console.log(result);
-                        hunt.weapon = result;
-                        // console.log(hunt);
-                        shootingSessions.push(hunt);
-                        
-                        return hunt;
+                    console.log(hunt.getWeaponUsed())
 
-                    })
-
+                    shootingSessions.push(hunt);
                 }, this)
                 
                 console.log(shootingSessions);
-                return hunt;
-
+                return shootingSessions;
                 
-            }).then((val) => {
-                // console.log(val);
-                res.render('sessions', {data: val});
+            }).then((shootingSessions) => {
+                res.render('sessions', {data: shootingSessions});
             })
             .catch(function(error) { console.log(error) });
     });
