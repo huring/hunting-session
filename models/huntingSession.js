@@ -1,10 +1,6 @@
-var { Weapon } = require('../models/weapon');
-
 class HuntingSession {
 
     constructor(obj) {
-
-        // console.log(obj);
 
         if (obj) {
             this['_id'] = obj._id;
@@ -21,7 +17,6 @@ class HuntingSession {
         }
     }
 
-
     // Public variables
     get id() { return this['_id']; }
     get uid() { return this['_uid']; }
@@ -36,6 +31,15 @@ class HuntingSession {
     
     get weapon() { return this['_weapon']; }
     set weapon(weapon) { this['_weapon'] = weapon; }
+
+    add() {
+        return new Promise((resolve, reject) => {
+            db.collection('hunting_sessions').insert(this, (err, result) => {
+                if (err) return reject(err);
+                resolve("Saved to database");
+            });
+        });
+    }
 }
 
 exports.HuntingSession = HuntingSession;
