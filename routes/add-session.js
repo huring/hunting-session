@@ -1,7 +1,7 @@
 var { HuntingSession } = require('../models/classes/huntingSession.class');
+var { Weapon } = require('../models/classes/weapon.class');
 
 var { User } = require('../models/user');
-var { Weapon } = require('../models/weapon');
 
 module.exports = function(app, appEnv) {
 

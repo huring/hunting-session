@@ -8,21 +8,12 @@ class Weapon {
 
         if (obj) {
             this.uid = 1;                       // User-id needs to be set with code...
-            this._type = obj.weaponType;
-            this._model = obj.weaponModel;
-            this._caliber = obj.weaponCaliber;
+            this.type = obj.weaponType;
+            this.model = obj.weaponModel;
+            this.caliber = obj.weaponCaliber;
         }
         
     };
-
-    get type() { return this._type; }
-    set type(type) { this._type = type; }
-
-    get model() { return this._model; }
-    set model(model) { this._model = model; }
-
-    get caliber() { return this._caliber; }
-    set caliber(caliber) { this._caliber = caliber; }
 
     add() {
         return new Promise((resolve, reject) => {
@@ -38,7 +29,6 @@ class Weapon {
             db.collection('weapons').findOne({_id: ObjectId(id)}, (err, result) => {
                 if (err)
                     throw new Error(err);
-
                 resolve(result);
             });
         })
@@ -49,7 +39,6 @@ class Weapon {
             db.collection('weapons').find().toArray((err, result) => {
                 if (err)
                     throw new Error(err);
-
                 resolve(result);
             });
         })

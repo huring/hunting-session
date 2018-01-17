@@ -3,14 +3,14 @@
     {{#each data}}
     <div class="col-sm-4">
         <div class="card">
-            <div class="card-block top-image" style="background-image: url(./uploads/{{image}})"></div>
+            <div class="card-block top-image" style="background-image: url(./uploads/{{file}})"></div>
             <div class="card-block">
                 <h4 class="card-title"><a href="/sessions/{{_id}}" class="detail-link">{{location}}</a></h4>
                 <p class="card-text"><small class="text-muted">{{{timestamp}}}, {{duration}} h, {{distance}} km</small></p>
                 <p class="card-text">{{comment}}</p>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><strong>Vapen:</strong> {{weapon._model}} ({{weapon._type}}, cal: {{weapon._caliber}})</li>
+                <li class="list-group-item"><strong>Vapen:</strong> {{weapon.model}} ({{weapon.type}}, cal: {{weapon.caliber}})</li>
                 <li class="list-group-item"><strong>Byten:</strong> {{kills}} {{animalType}}</li>
             </ul>
         </div>

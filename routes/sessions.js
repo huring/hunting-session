@@ -2,7 +2,7 @@ const hbs = require('express-hbs')
 
 var { Sessions } = require('../models/sessions');
 var { HuntingSession } = require('../models/classes/huntingSession.class');
-var { Weapon } = require('../models/weapon');
+var { Weapon } = require('../models/classes/weapon.class');
 
 var formattingHelper = require("../models/helpers/helper.formatting");
 

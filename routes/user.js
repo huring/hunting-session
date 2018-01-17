@@ -1,6 +1,6 @@
 const hbs = require('express-hbs')
 var { User } = require('../models/user');
-var { Weapon } = require('../models/weapon');
+var { Weapon } = require('../models/classes/weapon.class');
 
 module.exports = function(app, appEnv) {
   
