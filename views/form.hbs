@@ -8,28 +8,24 @@
 
     <div class="row">
 
-        <div class="form-group col-6">
+        <div class="form-group col-12">
             <label for="duration">Duration</label>
-            <input type="text" class="form-control required" id="duration" placeholder="Längd (timmar, minuter)" name="duration" required>
-        </div>
+            <input type="text" class="form-control form-control-lg required" id="duration" placeholder="Längd (timmar, minuter)" name="duration" required>
         
-        <div class="form-group col-6">        
             <label for="distance">Antal km</label>
-            <input type="text" class="form-control" id="distance" placeholder="Distans (km)…" name="distance" required>
+            <input type="text" class="form-control form-control-lg" id="distance" placeholder="Distans (km)…" name="distance" required>
         </div>
     
     </div>
     
     <div class="row">
         
-        <div class="form-group col-6">        
+        <div class="form-group col-12">        
             <label for="shotsFired">Antal skott avlossade</label>
-            <input type="text" class="form-control" id="shotsFired" placeholder="Antal skott avlossade…" name="shotsFired" required>
-        </div>
-        
-        <div class="form-group col-6">        
+            <input type="text" class="form-control form-control-lg" id="shotsFired" placeholder="Antal skott avlossade…" name="shotsFired" required>
+     
             <label for="kills">Byte</label>
-            <input type="text" class="form-control" id="kills" placeholder="Fällt byte…" name="kills" required>
+            <input type="text" class="form-control form-control-lg" id="kills" placeholder="Fällt byte…" name="kills" required>
         </div>
     
     </div>
@@ -47,13 +43,18 @@
 
     {{> shotfiredmodal}}
 
-    <select name="weaponModelUsed" id="weaponModelUsed">
+    <div class="row">
+    
+        <div class="form-group col-12">
+            <select name="weaponModelUsed" class="form-control  form-control-lg" id="weaponModelUsed">
 
-        {{#each weapons}}
-            <option value="{{this._id}}">{{this._model}} ({{this._type}})</option>
-        {{/each}}
+                {{#each weapons}}
+                    <option value="{{this.id}}">{{this.model}} ({{this.type}})</option>
+                {{/each}}
 
-    </select>
+            </select>
+        </div>
+    </div>
 
     <div class="form-group">        
         <textarea class="form-control" id="commentText" name="commentText" rows="3" placeholder="Några kommentarer?"></textarea>
