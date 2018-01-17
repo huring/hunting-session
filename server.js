@@ -7,12 +7,17 @@ const path = require('path');
 const expressLess = require('express-less');
 const fileUpload = require('express-fileupload');
 
+// Make user available to all models & views
+var { User } = require('./models/user');
+const user = new User();
+
 var appEnv = {
   db: {
     user: 'dev',
     pass: 'dev',
     url: 'ds161306.mlab.com:61306/huntingsession-dev'
   },
+  user: user,
   publicPath: path.join(__dirname, '/views')
 };
 

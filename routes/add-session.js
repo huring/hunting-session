@@ -27,7 +27,7 @@ module.exports = function(app, appEnv) {
   app.post('/add_session', (req, res) => {
 
     var huntingSession = new HuntingSession({
-      uid: 1,
+      uid: appEnv.user.oid,
       location: req.body.location,
       duration: req.body.duration,
       distance: req.body.distance,

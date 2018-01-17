@@ -5,11 +5,9 @@ const ObjectId = require('mongodb').ObjectID;
 class User {
 
     constructor() {
-        this._oid = "5a58bd28734d1d61613fca76";
-        this._uid = 1;
+        this.oid = "5a58bd28734d1d61613fca76";
+        this.uid = 1;
     }
-
-    get id() { return this._uid; }
 
     getByID(id) {
 
@@ -17,7 +15,7 @@ class User {
         console.log("Promise single result with ID");
 
         return new Promise(function(resolve, reject) {
-            db.collection('users').findOne({_id: ObjectId(_this._oid)}, function(err, result) {
+            db.collection('users').findOne({_id: ObjectId(_this.oid)}, function(err, result) {
                 if (err) {
                     reject(err);
                     done();
@@ -31,13 +29,13 @@ class User {
     getWeaponCollection() {
         var _this = this;
 
-        if (this._uid === null)
+        if (this.uid === null)
             throw new Error("User ID is missing for weapon selection");
 
         console.log("Get all weapons for user");
 
         return new Promise((resolve, reject) => {
-            db.collection('weapons').find({uid: _this._uid}).toArray((err, result) => {
+            db.collection('weapons').find({uid: _this.uid}).toArray((err, result) => {
                 if (err) {
                     reject(err);
                 } else {
