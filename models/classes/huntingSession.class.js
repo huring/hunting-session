@@ -45,6 +45,18 @@ class HuntingSession {
             });
         })
     }
+
+    getLocationsJson(query) {
+        return new Promise((resolve, reject) => {
+
+            db.collection('hunting_sessions').find({'location': {'$regex': query}}, {location:1}).toArray((err, result) => {
+                if (err)
+                    throw new Error(err);
+                resolve(JSON.stringify(result));
+            });
+
+        });
+    }
 }
 
 exports.HuntingSession = HuntingSession;

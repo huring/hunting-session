@@ -44,4 +44,24 @@ module.exports = function(app, appEnv) {
 
         }).catch((err) => { throw new Error(err) });           
     });
+
+    app.get('/sessions/json', (req, res) => {
+
+        var huntingSession = new HuntingSession();
+
+        console.log(req.query.s);
+
+        var locations = huntingSession.getLocationsJson(req.query.s).then((result) => {
+            // console.log(result);
+            return result;
+        }).catch((err) => { throw new Error(err) });
+
+        var output = Promise.all([locations]);
+        output.then((data) => {
+            // console.log(data);
+            res.send(data[0]);
+        })
+
+        // res.write("foo");
+    })
 }

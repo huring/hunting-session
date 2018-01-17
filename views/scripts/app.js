@@ -3,6 +3,9 @@ $(document).ready(function() {
         console.log(numFiles);
         console.log(label);
     });
+
+
+    $('.typeahead').typeahead(["item1","item2","item3"]);
 });
 
 // Get all sesssions
@@ -21,6 +24,25 @@ $(document).on('change', ':file', function() {
         label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
     input.trigger('fileselect', [numFiles, label]);
 });
+
+$("#location").on('keyup', function() {
+    console.log("Location is pressed")
+    var input = $(this);
+    var $typeahead = $(".typeahead");
+
+    // console.log('/sessions/json?s=' + input.val());
+
+    var current = $typeahead.typeahead("getActive");
+    console.log(current);
+
+    if (input.val().length >= 2) {
+        $.getJSON('/sessions/json?s=' + input.val(), (result) => {
+            console.log(result);
+            $("#location").typeahead({ source:result });
+        });
+    } 
+});
+
 
 $('#addShot').on('click', function() {
     console.log("Add shot…")

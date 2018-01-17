@@ -51,6 +51,6 @@ class Sessions {
             })
         });
     }
-}
+ }
 
 exports.Sessions = Sessions;
