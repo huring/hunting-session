@@ -5,7 +5,15 @@ $(document).ready(function() {
     });
 
 
-    $('.typeahead').typeahead(["item1","item2","item3"]);
+    $('#location').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+    },
+    {
+        name: "items",
+        source:["item1", "item2", "item3", "item4"] 
+    });
 });
 
 // Get all sesssions
@@ -28,24 +36,36 @@ $(document).on('change', ':file', function() {
 $("#location").on('keyup', function() {
     console.log("Location is pressed")
     var input = $(this);
-    var $typeahead = $(".typeahead");
 
-    // console.log('/sessions/json?s=' + input.val());
-
-    var current = $typeahead.typeahead("getActive");
-    console.log(current);
-
+    // Ugly (but working...) autocomplete
     if (input.val().length >= 2) {
         $.getJSON('/sessions/json?s=' + input.val(), (result) => {
-            console.log(result);
-            $("#location").typeahead({ source:result });
+            console.log(input.val().length);
+            $("#existingLocations").html("");
+            if((result.length == 0)) {
+                
+                $("#existingLocations").html("");
+                
+            } else {
+                result.forEach((element) => {
+                    $("<p/>")
+                        .text(element.location)
+                        .on('click', (elm) => {
+                            var text = elm.currentTarget.innerText;
+                            $("#location").val(text);
+                            $("#existingLocations").html("");
+                        })
+                        .appendTo("#existingLocations");
+                }, this);
+            }
         });
-    } 
+    } else {
+        $("#existingLocations").html("");
+    }
 });
 
 
 $('#addShot').on('click', function() {
-    console.log("Add shot…")
 
     var shot = $(".shot-input").map(function() {
         return this.value
